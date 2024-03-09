@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -62,17 +63,50 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
     var num1 by remember { mutableStateOf("") }
     var num2 by remember { mutableStateOf("") }
     var oper by remember { mutableStateOf("+") }
-    var res by remember { mutableStateOf("") }
+    var res by remember { mutableStateOf(0) }
+    var current by remember { mutableStateOf(1) }
 
 
+    fun calculate() {
+        when (oper) {
+            "+" -> res = num1.toInt() + num2.toInt()
+            "-" -> res = num1.toInt() - num2.toInt()
+            "x" -> res = num1.toInt() * num2.toInt()
+            "/" -> res = num1.toInt() / num2.toInt()
+        }
+    }
 
+    fun reset() {
+        num1 = ""
+        num2 = ""
+        oper = "+"
+        res = 0
+        current = 1
+    }
 
+    fun addNumber(number: String) {
+        if (current == 1) {
+            num1 += number
+        } else {
+            num2 += number
+        }
+    }
 
+    fun addOperator(operat: String) {
+        oper = operat
+        current = 2
+    }
+
+    fun addResult() {
+        calculate()
+        num1 = res.toString()
+        num2 = ""
+        current = 2
+    }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-
     ) {
 
         Column(
@@ -108,7 +142,7 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 Text(text = "=",
                     fontSize = 10.em,
                     color = Color.White)
-                Text(text = res,
+                Text(text = res.toString(),
                     fontSize = 10.em,
                     color = Color.White)
             }
@@ -121,15 +155,15 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("1") }) {
                 Text(text = "1")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("2") }) {
                 Text(text = "2")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("3") }) {
                 Text(text = "3")
             }
 
@@ -141,15 +175,15 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("4") }) {
                 Text(text = "4")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("5") }) {
                 Text(text = "5")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("6") }) {
                 Text(text = "6")
             }
 
@@ -161,15 +195,15 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("7") }) {
                 Text(text = "7")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("8") }) {
                 Text(text = "8")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("9") }) {
                 Text(text = "9")
             }
 
@@ -181,15 +215,15 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addOperator("+") }) {
                 Text(text = "+")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addNumber("0") }) {
                 Text(text = "0")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addOperator("-") }) {
                 Text(text = "-")
             }
 
@@ -201,16 +235,16 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         ) {
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addOperator("/") }) {
                 Text(text = "/")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { addOperator("x") }) {
                 Text(text = "x")
             }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { addResult() },
                 modifier = modifier
             ) {
                 Text(text = "=")
@@ -223,15 +257,20 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
         ) {
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { reset() },
                 modifier = modifier.fillMaxWidth()
             ) {
                 Text(text = "RESET")
             }
 
-
         }
 
     }
+
+    
+
+
+
+
 
 }

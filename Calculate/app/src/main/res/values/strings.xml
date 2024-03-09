@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Calculate</string>
-    <string name="one">Increase</string>
+    <string name="number1">Num %s</string>
 </resources>
