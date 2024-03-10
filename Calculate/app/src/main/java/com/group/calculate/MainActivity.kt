@@ -60,7 +60,49 @@ fun CalculatorApp() {
 @Composable
 fun CalculatorButtons(modifier: Modifier = Modifier) {
 
-    
+    var num1 by remember { mutableStateOf("") }
+    var num2 by remember { mutableStateOf("") }
+    var oper by remember { mutableStateOf("+") }
+    var res by remember { mutableStateOf(0) }
+    var current by remember { mutableStateOf(1) }
+
+
+    fun calculate() {
+        when (oper) {
+            "+" -> res = num1.toInt() + num2.toInt()
+            "-" -> res = num1.toInt() - num2.toInt()
+            "x" -> res = num1.toInt() * num2.toInt()
+            "/" -> res = num1.toInt() / num2.toInt()
+        }
+    }
+
+    fun reset() {
+        num1 = ""
+        num2 = ""
+        oper = "+"
+        res = 0
+        current = 1
+    }
+
+    fun addNumber(number: String) {
+        if (current == 1) {
+            num1 += number
+        } else {
+            num2 += number
+        }
+    }
+
+    fun addOperator(operat: String) {
+        oper = operat
+        current = 2
+    }
+
+    fun addResult() {
+        calculate()
+        num1 = res.toString()
+        num2 = ""
+        current = 2
+    }
 
     Column(
         modifier = modifier
