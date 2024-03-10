@@ -13,9 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +41,9 @@ class MainActivity : ComponentActivity() {
             CalculateTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                    ,
                     color = MaterialTheme.colorScheme.background
                 ) {
 
@@ -107,12 +113,13 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(Color.LightGray)
     ) {
 
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.Red)
+                .background(Color.White)
                 .height(200.dp)
                 .padding(15.dp)
         ) {
@@ -125,34 +132,39 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 Text(
                     text = num1,
                     fontSize = 6.em,
-                    color = Color.White
+                    color = Color.Black
                 )
                 Text(text = oper,
                     fontSize = 6.em,
-                    color = Color.White)
+                    color = Color.Black)
                 Text(text = num2,
                     fontSize = 6.em,
-                    color = Color.White)
+                    color = Color.Black)
             }
             Row (
                 modifier = modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                ,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(text = "=",
                     fontSize = 10.em,
-                    color = Color.White)
+                    color = Color.Black)
                 Text(text = res.toString(),
                     fontSize = 10.em,
-                    color = Color.White)
+                    color = Color.Black)
             }
 
         }
 
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceAround,
             modifier = modifier
                 .fillMaxWidth()
+                .padding(
+                    horizontal = 30.dp,
+                    vertical = 10.dp
+                )
         ) {
 
             Button(onClick = { addNumber("1") }) {
@@ -167,12 +179,20 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 Text(text = "3")
             }
 
+            FilledTonalButton(onClick = { addOperator("x") }) {
+                Text(text = "x")
+            }
+
         }
 
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceAround,
             modifier = modifier
                 .fillMaxWidth()
+                .padding(
+                    horizontal = 30.dp,
+                    vertical = 10.dp
+                )
         ) {
 
             Button(onClick = { addNumber("4") }) {
@@ -187,12 +207,20 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 Text(text = "6")
             }
 
+            FilledTonalButton(onClick = { addOperator("/") }) {
+                Text(text = "/")
+            }
+
         }
 
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceAround,
             modifier = modifier
                 .fillMaxWidth()
+                .padding(
+                    horizontal = 30.dp,
+                    vertical = 10.dp
+                )
         ) {
 
             Button(onClick = { addNumber("7") }) {
@@ -207,63 +235,48 @@ fun CalculatorButtons(modifier: Modifier = Modifier) {
                 Text(text = "9")
             }
 
+            FilledTonalButton(onClick = { addOperator("+") }) {
+                Text(text = "+")
+            }
+
         }
 
         Row(
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceAround,
             modifier = modifier
                 .fillMaxWidth()
+                .padding(
+                    horizontal = 30.dp,
+                    vertical = 10.dp
+                )
         ) {
 
-            Button(onClick = { addOperator("+") }) {
-                Text(text = "+")
+            OutlinedButton(
+                onClick = { reset() },
+                modifier = modifier,
+            ) {
+                Text(text = "AC")
             }
 
             Button(onClick = { addNumber("0") }) {
                 Text(text = "0")
             }
 
-            Button(onClick = { addOperator("-") }) {
-                Text(text = "-")
-            }
-
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = modifier
-                .fillMaxWidth()
-        ) {
-
-            Button(onClick = { addOperator("/") }) {
-                Text(text = "/")
-            }
-
-            Button(onClick = { addOperator("x") }) {
-                Text(text = "x")
-            }
-
-            Button(
+            OutlinedButton(
                 onClick = { addResult() },
                 modifier = modifier
             ) {
                 Text(text = "=")
             }
 
-        }
-
-        Row(
-            modifier = modifier
-        ) {
-
-            Button(
-                onClick = { reset() },
-                modifier = modifier.fillMaxWidth()
-            ) {
-                Text(text = "RESET")
+            FilledTonalButton(onClick = { addOperator("-") }) {
+                Text(text = "-")
             }
 
+
         }
+
+
 
     }
 
